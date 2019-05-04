@@ -1,4 +1,4 @@
-package hello;
+package mainpckg;
 
 public class RequestResponse {
     private boolean successfulRequest;

@@ -1,4 +1,4 @@
-package hello;
+package mainpckg;
 
 public class PendingTransaction {
     private Long change;
@@ -11,27 +11,14 @@ public class PendingTransaction {
         super();
         this.change = change;
         this.proposedBalance = proposedBalance;
-//        this.balance = balance;
     }
 
-//    public PendingTransaction(String name, Long balance) {
-//        super();
-//        this.name = name;
-//        this.balance = balance;
-//    }
     public Long getChange() {
         return change;
     }
     public void setChange(Long change) {
         this.change = change;
     }
-
-//    public String getName() {
-//        return name;
-//    }
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     public Long getProposedBalance() {
         return proposedBalance;

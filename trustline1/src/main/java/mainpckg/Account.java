@@ -1,4 +1,4 @@
-package hello;
+package mainpckg;
 
 public class Account {
     private Long id;

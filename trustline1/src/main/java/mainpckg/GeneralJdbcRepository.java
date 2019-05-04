@@ -1,8 +1,7 @@
-package hello;
+package mainpckg;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.SQLWarningException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,12 +12,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class AccountJdbcRepository {
+public class GeneralJdbcRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public AccountJdbcRepository(JdbcTemplate jdbcTemplate) {
+    public GeneralJdbcRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate=jdbcTemplate;
     }
 

@@ -1,6 +1,4 @@
-package hello;
-
-import java.util.concurrent.atomic.AtomicLong;
+package mainpckg;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,22 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 
-
 @RestController
-public class GreetingController {
+public class Controller {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public GreetingController(JdbcTemplate jdbcTemplate) {
+    public Controller(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate=jdbcTemplate;
     }
 
     @RequestMapping("/sendRequest")
     public RequestResponse sendRequest(@RequestParam(value="amountSending") Long amountSending) {
-        AccountJdbcRepository n = new AccountJdbcRepository(jdbcTemplate);
+        GeneralJdbcRepository n = new GeneralJdbcRepository(jdbcTemplate);
         RequestResponse response = n.processTransactionRequest(amountSending, "send");
         System.out.println("Sending $" + amountSending);
         return response;
@@ -33,7 +28,7 @@ public class GreetingController {
 
     @RequestMapping("/receiveRequest")
     public RequestResponse receiveRequest(@RequestParam(value="amountReceiving") Long amountReceiving) {
-        AccountJdbcRepository n = new AccountJdbcRepository(jdbcTemplate);
+        GeneralJdbcRepository n = new GeneralJdbcRepository(jdbcTemplate);
         RequestResponse response = n.processTransactionRequest(amountReceiving,"receive");
         System.out.println("Received $" + amountReceiving);
         return response;
@@ -41,22 +36,18 @@ public class GreetingController {
 
     @RequestMapping("/getCurrentBalance")
     public Long getCurrentBalance() {
-        AccountJdbcRepository n = new AccountJdbcRepository(jdbcTemplate);
+        GeneralJdbcRepository n = new GeneralJdbcRepository(jdbcTemplate);
         Long response = n.getCurrentBalance();
         return response;
     }
 
     @RequestMapping("/confirmTransaction")
     public Long confirmTransaction() { //@RequestParam(value="diffValue")Long diffValue, @RequestParam(value="currentBalance") Long currentBalance
-        AccountJdbcRepository n = new AccountJdbcRepository(jdbcTemplate);
+        GeneralJdbcRepository n = new GeneralJdbcRepository(jdbcTemplate);
         Long updatedBalance = n.confirmTransactionRequest();
-//        updatedBalance = 1L;
-        System.out.println("Current balance is $" + n.getCurrentBalance());
+        System.out.println("Current balance is " + n.getCurrentBalance());
         return updatedBalance;
     }
-
-
-
 
     @RequestMapping("/testConnection")
     @ResponseBody
@@ -72,17 +63,10 @@ public class GreetingController {
         return result;
     }
 
-    @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Greeting(counter.incrementAndGet(),
-                            String.format(template, name));
-    }
-
     @RequestMapping("/acct")
     public Account acct(@RequestParam(value="name", defaultValue="World") String name) {
-        AccountJdbcRepository n = new AccountJdbcRepository(jdbcTemplate);
+        GeneralJdbcRepository n = new GeneralJdbcRepository(jdbcTemplate);
         Account a = n.findById(1L);
-        System.out.println("hjdksfz;jkl" + a.getBalance());
         return a;
     }
 }
